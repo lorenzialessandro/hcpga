@@ -73,7 +73,19 @@ def run_and_log_experiment(instance, args, run_id, seed, first_run=False):
     """Run all solvers on an instance and log results to CSV file."""
     try:
         logger.info(f"Running experiment for instance {instance.name} (Run {run_id})")
+        # define the args for the GA solver
+        ga_args = {
+            'pop_size': args.pop_size,
+            'max_generations': args.max_generations,
+            'mutation_rate': args.mutation_rate,
+            'crossover_rate': args.crossover_rate,
+            'num_selected': args.num_selected,
+            'num_elites': args.num_elites,
+            'tournament_size': args.tournament_size,
+            'patience': args.patience
+        }
         
+        # - 
         # 1. Run CP-SAT solver to find the optimal solution
         logger.info(f"[{instance.name}] [Run {run_id}] Running CP-SAT to find optimal solution...")
         cpsat_make, cpsat_time, cpsat_memory, cpsat_status = run_cpsat(instance, seed, args.max_time_budget)
@@ -81,14 +93,15 @@ def run_and_log_experiment(instance, args, run_id, seed, first_run=False):
 
         # 2. Run HCPGA solver with collector
         logger.info(f"[{instance.name}] [Run {run_id}] Running Hybrid solver with collector...")
-        hcpga_make, hcpga_time, hcpga_memory = run_hcpga(instance, seed, cpsat_time, args.split)
+        hcpga_make, hcpga_time, hcpga_memory = run_hcpga(instance, seed, cpsat_time, args.split, args.num_copies, args.num_random, ga_args)
         logger.info(f"[{instance.name}] [Run {run_id}] HCPGA completed: makespan={hcpga_make}, time={hcpga_time:.2f}s, memory={hcpga_memory / 1024 / 1024:.2f}MB")
         
         # 3. Run GA solver
         logger.info(f"[{instance.name}] [Run {run_id}] Running GA solver...")
-        ga_make, ga_time, ga_memory = run_ga(instance, seed, args.max_time_budget)
+        ga_make, ga_time, ga_memory = run_ga(instance, seed, args.max_time_budget, ga_args)
         logger.info(f"[{instance.name}] [Run {run_id}] GA completed: makespan={ga_make}, time={ga_time:.2f}s, memory={ga_memory / 1024 / 1024:.2f}MB")
         
+        # -
         # Thread-safe CSV writing
         with csv_lock:
             with open(args.csv_file, 'a', newline='') as csvfile:
@@ -117,10 +130,10 @@ def run_and_log_experiment(instance, args, run_id, seed, first_run=False):
         return False
 
 # Runner functions 
-def run_hcpga(instance, seed, time_budget, split):
+def run_hcpga(instance, seed, time_budget, split, num_copies, num_random, ga_args):
     """Run HCPGA solver with collector."""
     try:
-        hybrid_solver = HCPGA(instance, seed=seed, time_budget=time_budget, split=split)
+        hybrid_solver = HCPGA(instance, seed=seed, time_budget=time_budget, split=split, num_copies=num_copies, num_random=num_random, ga_args=ga_args)
         
         with memory_tracker() as get_peak_usage:
             schedule, makespan_ga, makespan_icp, tot_time, ga_memory = hybrid_solver.solve()
@@ -147,12 +160,12 @@ def run_cpsat(instance, seed, max_time_budget):
         logger.error(f"Error in CP-SAT solver for {instance.name}: {str(e)}")
         return float('inf'), 0, 0, "ERROR"
     
-def run_ga(instance, seed, time_budget):
+def run_ga(instance, seed, time_budget, ga_args):
     """Run GA solver."""
     try:
         ga_solver = GA(instance, seed=seed, hybrid=False)
         ga_solver.max_time = time_budget
-        schedule, makespan, tot_time, memory_used = ga_solver.solve(args=None)
+        schedule, makespan, tot_time, memory_used = ga_solver.solve(args=ga_args)
             
         return makespan, tot_time, memory_used
     except Exception as e:
@@ -210,6 +223,14 @@ def args_parser():
     parser.add_argument('--split', type=float, help='Split of time budget between CP-SAT and GA solvers', default=0.3)
     parser.add_argument('--num_copies', type=int, help='Number of copies of the base chromosome to add to the population', default=1)
     parser.add_argument('--num_random', type=int, help='Number of random chromosomes to add to the population', default=30)
+    parser.add_argument('--pop_size', type=int, help='Population size for GA solver', default=100)
+    parser.add_argument('--max_generations', type=int, help='Max of generations for GA solver', default=1000)
+    parser.add_argument('--mutation_rate', type=float, help='Mutation rate for GA solver', default=0.7)
+    parser.add_argument('--crossover_rate', type=float, help='Crossover rate for GA solver', default=0.6)
+    parser.add_argument('--num_selected', type=int, help='Number of selected chromosomes for GA solver', default=70)
+    parser.add_argument('--num_elites', type=int, help='Number of elite chromosomes for GA solver', default=10)
+    parser.add_argument('--tournament_size', type=int, help='Tournament size for GA solver', default=5)
+    parser.add_argument('--patience', type=int, help='Patience for GA solver', default=3)
     args = parser.parse_args()
     
     return args
