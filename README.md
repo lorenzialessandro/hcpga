@@ -10,8 +10,16 @@ The CP solver generates feasible solutions, which are then used to initialize th
 Our experimental evaluation on 74 JSSP benchmark instances of varying sizes demonstrates that, while standalone CP-SAT and HCPGA achieve comparable makespan results, the latter significantly reduces the time and memory required to find a good solution. This makes our approach highly valuable for industrial applications. To our knowledge, this is the first attempt to combine an evolutionary approach with an exact solver for solving the JSSP, specifically addressing the need for computational efficiency.
 
 ## Installation
+To install the project follow these steps:
+
+```bash
+git clone https://github.com/lorenzialessandro/hcpga
+cd hcpga
+pip install -r requirements.txt
+```
 
 ## Paper Results and HCPGA class usage
+To replicate the results from the paper run the `runner.py` file. 
 
 ## License
 
