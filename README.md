@@ -22,7 +22,7 @@ pip install -r requirements.txt
 ## Usage and Paper Results Replication
 The main entry point for running experiments is the `runner.py` script. It provides several command-line options:
 
-```bash
+```python
 python runner.py [options]
 ```
 
@@ -67,7 +67,7 @@ The `runner.py` script accepts the following parameters:
 
 Run experiments on all instances in the default folder with 4 parallel workers:
 
-```bash
+```python
 python runner.py --workers 4 --num_runs 5 --max_time_budget 3600
 ```
 
