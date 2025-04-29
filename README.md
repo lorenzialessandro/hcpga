@@ -37,15 +37,31 @@ The script runs these three solvers sequentially on each instance, collects perf
 
 ### Command-line Options
 
+The `runner.py` script accepts the following parameters:
+
+#### Basic Parameters:
 - `--folder`: Path to the folder containing the JSSP instances (default: 'instances/ClassicBenchmark')
 - `--csv_file`: CSV file to log the results (default: 'csv/results_YYYYMMDD-HHMMSS.csv')
 - `--max_time_budget`: Maximum time budget for each solver in seconds (default: 10800, i.e., 3 hours)
 - `--seed`: Base random seed (default: 10)
 - `--num_runs`: Number of runs per instance with different seeds (default: 1)
 - `--workers`: Number of parallel workers (default: 1)
+
+#### HCPGA-specific Parameters:
 - `--split`: Split of time budget between CP-SAT and GA solvers (default: 0.3, meaning 30% for CP-SAT and 70% for GA)
 - `--num_copies`: Number of copies of the base chromosome to add to the GA population (default: 1)
 - `--num_random`: Number of random chromosomes to add to the GA population (default: 30)
+
+#### GA Parameters (used by both GA and HCPGA solvers):
+- `--pop_size`: Population size for GA solver (default: 100)
+- `--max_generations`: Maximum number of generations for GA solver (default: 1000)
+- `--mutation_rate`: Mutation rate for GA solver (default: 0.7)
+- `--crossover_rate`: Crossover rate for GA solver (default: 0.6)
+- `--num_selected`: Number of selected chromosomes for GA solver (default: 70)
+- `--num_elites`: Number of elite chromosomes for GA solver (default: 10)
+- `--tournament_size`: Tournament size for GA solver (default: 5)
+- `--patience`: Patience for early stopping in GA solver (default: 3)
+
 
 ### Example Usage
 
@@ -91,6 +107,22 @@ print(f"CP-SAT makespan: {makespan_cp}")
 print(f"Total solution time: {total_time:.2f} seconds")
 print(f"Memory used: {memory_used / (1024 * 1024):.2f} MB")
 ```
+
+### Experiments and Measurements
+
+For each instance and solver, the following metrics are measured and recorded:
+- **Makespan**: The total completion time of all jobs (the objective to minimize)
+- **Solution Time**: The time taken to find the best solution
+- **Memory Usage**: The peak memory consumption during solving
+
+The results are stored in a CSV file with the following columns:
+- `instance`: Name of the JSSP instance
+- `run_id`: Run identifier (for multiple runs with different seeds)
+- `seed`: Random seed used
+- `cp_sat_makespan`, `cp_sat_time`, `cp_sat_memory`: Results for the CP-SAT solver
+- `hcpga_makespan`, `hcpga_time`, `hcpga_memory`: Results for our hybrid approach
+- `ga_makespan`, `ga_time`, `ga_memory`: Results for the pure GA solver
+
 
 ## Project Structure
 
