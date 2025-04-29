@@ -13,13 +13,14 @@ class HCPGA:
     """
     Hybrid Constrained Programming with Genetic Algorithm for Job Shop Scheduling Problem (JSP)
     """
-    def __init__(self, instance, seed, time_budget = 2000, split = 0.3, num_copies=1, num_random=30):
+    def __init__(self, instance, seed, time_budget = 2000, split = 0.3, num_copies=1, num_random=30, ga_args=None):
         self.instance = instance
         self.seed = seed
         self.time_budget = time_budget
         self.split = split
         self.num_copies = num_copies
         self.num_random = num_random
+        self.ga_args = ga_args
         
         # CP-SAT solver
         self.cpsat_solver = CPSATC(instance, self.time_budget * self.split)  # allocate time for CP-SAT solver (default 30% of the total time)
@@ -116,13 +117,13 @@ class HCPGA:
         
         # -
         # Create initial population for GA solver
-        #TODO: move the pop_size to the arguments of the function
-        initial_population = self.create_initial_population(chromosomes, pop_size=100, num_copies=self.num_copies, num_random=self.num_random)
-        ga_args = {'initial_population': initial_population}
-
+        initial_population = self.create_initial_population(chromosomes, pop_size=self.ga_args["pop_size"], num_copies=self.num_copies, num_random=self.num_random)
+        # Add the initial population to the ga_args
+        self.ga_args["initial_population"] = initial_population
+        
         # -
         # 2. Solve using GA solver
-        ga_schedule, ga_makespan, ga_time, ga_memory = self.ga_solver.solve(args=ga_args) 
+        ga_schedule, ga_makespan, ga_time, ga_memory = self.ga_solver.solve(args=self.ga_args) 
         
         # - 
         # Results

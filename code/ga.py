@@ -243,19 +243,19 @@ class GA():
         final_pop = ga.evolve(
             generator=self.generator,
             evaluator=self.evaluator,
-            pop_size=100,
+            pop_size=args['pop_size'],
             maximize=False,
             bounder=None, 
-            max_generations=1000,
-            mutation_rate=0.7,
-            crossover_rate=0.6,
-            num_selected=70,
+            max_generations=args['max_generations'],
+            mutation_rate=args['mutation_rate'],
+            crossover_rate=args['crossover_rate'],
+            num_selected=args['num_selected'],
             initial_population=initial_population,
             max_time=self.max_time,
             start_time=time.time(),
-            num_elites = 10,
-            tournament_size=5,
-            patience = 3
+            num_elites = args['num_elites'],
+            tournament_size=args['tournament_size'],
+            patience = args['patience'],
         )
 
         current, peak = tracemalloc.get_traced_memory()
