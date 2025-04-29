@@ -19,7 +19,7 @@ pip install -r requirements.txt
 ```
 
 
-## Usage
+## Usage and Paper Results Replication
 The main entry point for running experiments is the `runner.py` script. It provides several command-line options:
 
 ```bash
@@ -147,5 +147,7 @@ hcpga/
 ```
 
 ## License
+TODO
 
 ## Contact
+TODO
