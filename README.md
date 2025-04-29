@@ -27,7 +27,7 @@ python runner.py [options]
 ```
 
 ### Paper Results
-To replicate the results from our paper, you can run the `runner.py` file which automatically executes three different experiments on each instance:
+To replicate the results from our paper, you can run the `runner.py` file which automatically executes three different experiments on each instance with the paper parameters:
 
 1. **CP-SAT Solver**: The pure constraint programming approach using Google's OR-Tools CP-SAT solver
 2. **HCPGA**: Our hybrid approach combining CP-SAT and Genetic Algorithm
@@ -110,8 +110,8 @@ hcpga/
 ├── log/                # Log files directory (created if needed)
 ├── csv/                # Results CSV files directory (created if needed)
 ├── runner.py           # Main script to run experiments
-├── runner.py           # Dependencies
-└── README.md           # This file
+├── requirements.txt    
+└── README.md           
 ```
 
 ## License
