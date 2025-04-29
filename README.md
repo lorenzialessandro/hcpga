@@ -135,7 +135,7 @@ hcpga/
 │   ├── cpsat.py        # CP-SAT solver implementation
 │   ├── cpsatc.py       # CP-SAT solver with solution collection
 │   ├── ga.py           # Genetic Algorithm implementation
-│   ├── hcpga.py        # Hybrid CP-SAT and GA implementation
+│   ├── hcpga.py        # HCPGA method implementation
 │   └── utils.py        # Utility functions and classes
 ├── instances/          # JSSP benchmark instances
 │   └── ClassicBenchmark/
