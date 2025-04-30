@@ -134,20 +134,26 @@ hcpga/
 │   ├── __init__.py
 │   ├── cpsat.py        # CP-SAT solver implementation
 │   ├── cpsatc.py       # CP-SAT solver with solution collection
-│   ├── ga.py           # Genetic Algorithm implementation
-│   ├── hcpga.py        # HCPGA method implementation
-│   └── utils.py        # Utility functions and classes
+│   ├── ga.py           # GA solver implementation
+│   ├── hcpga.py        # HCPGA solver implementation
+│   └── utils.py        
 ├── instances/          # JSSP benchmark instances
 │   └── ClassicBenchmark/
 ├── log/                # Log files directory (created if needed)
 ├── csv/                # Results CSV files directory (created if needed)
 ├── runner.py           # Main script to run experiments
 ├── requirements.txt    
+├── LICENSE.md
 └── README.md           
 ```
 
 ## License
-TODO
+This project is released under the MIT License. See [LICENSE.md](LICENSE.md) for more information.
 
 ## Contact
-TODO
+For any questions/doubts please feel free to contact us: 
+- Alessandro Lorenzi - alessandro.lorenzi-1@studenti.unitn.it
+- Chiara C. Rambaldi Migliore - cc.rambaldimigliore@unitn.it
+- Stefano Genetti - stefano.genetti@unitn.it
+- Marco Roveri - marco.roveri@unitn.it
+- Giovanni Iacca - giovanni.iacca@unitn.it
