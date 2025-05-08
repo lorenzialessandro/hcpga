@@ -12,7 +12,7 @@ Our experimental evaluation on 74 JSSP benchmark instances of varying sizes demo
 ## Citation
 If you use this work in your research, please cite our paper:
 ```bibtex
-@inproceedings{lorenzi2025hcpa,
+@inproceedings{lorenzi2025hcpga,
   title     = {A Hybrid Constrained Programming with Genetic Algorithm for the Job Shop Scheduling Problem},
   author    = {Lorenzi, Alessandro and Genetti, Stefano and Rambaldi Migliore, Chiara C. and Roveri, Marco and Iacca, Giovanni},
   booktitle = {Proceedings of the Genetic and Evolutionary Computation Conference Companion (GECCO '25 Companion)},
