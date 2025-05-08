@@ -9,6 +9,19 @@ The CP solver generates feasible solutions, which are then used to initialize th
 
 Our experimental evaluation on 74 JSSP benchmark instances of varying sizes demonstrates that, while standalone CP-SAT and HCPGA achieve comparable makespan results, the latter significantly reduces the time and memory required to find a good solution. This makes our approach highly valuable for industrial applications. To our knowledge, this is the first attempt to combine an evolutionary approach with an exact solver for solving the JSSP, specifically addressing the need for computational efficiency.
 
+## Citation
+If you use this work in your research, please cite our paper:
+```bibtex
+@inproceedings{lorenzi2025hcpa,
+  title     = {A Hybrid Constrained Programming with Genetic Algorithm for the Job Shop Scheduling Problem},
+  author    = {Lorenzi, Alessandro and Genetti, Stefano and Rambaldi Migliore, Chiara C. and Roveri, Marco and Iacca, Giovanni},
+  booktitle = {Proceedings of the Genetic and Evolutionary Computation Conference Companion (GECCO '25 Companion)},
+  year      = {2025},
+  publisher = {ACM},
+  address   = {Malaga, Spain}
+}
+```
+
 ## Installation
 To install the project follow these steps:
 
