@@ -1,5 +1,7 @@
 # A Hybrid Constrained Programming with Genetic Algorithm for the Job Shop Scheduling Problem
 
+[![ACM](https://img.shields.io/badge/acm-10.1145/3712255.3734284-blue.svg)](https://dl.acm.org/doi/abs/10.1145/3712255.3734284)
+
 ## Abstract
 The Job Shop Scheduling Problem (JSSP) is a widely studied NP-hard optimization problem with significant academic and industrial relevance, particularly in the context of Industry 4.0, where efficient scheduling algorithms are crucial for improving decision-making in increasingly automated production systems. Despite extensive theoretical advancements, a gap remains between academic research and real-world implementation, as most studies either focus on theoretical aspects or emphasize numerical advantages while neglecting practical deployment challenges including those related to computational constraints. 
 
@@ -170,3 +172,4 @@ For any questions/doubts please feel free to contact us:
 - Stefano Genetti - stefano.genetti@unitn.it
 - Marco Roveri - marco.roveri@unitn.it
 - Giovanni Iacca - giovanni.iacca@unitn.it
+
